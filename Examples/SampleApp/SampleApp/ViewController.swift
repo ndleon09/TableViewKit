@@ -26,6 +26,7 @@ class FirstSection: Section {
     }
     
     let vc: ViewController
+    let item2 = CustomItem(title: "Testing")
     
     internal var header: HeaderFooterView = .view(CustomHeaderItem(title: "First Section"))
     internal var footer: HeaderFooterView = .view(CustomHeaderItem(title: "Section Footer\nHola"))
@@ -34,7 +35,6 @@ class FirstSection: Section {
         self.vc = vc
         
         let item = CustomItem(title: "Passengers")
-        let item2 = CustomItem(title: "Testing")
         let item3 = CustomItem(title: "Testing 2")
         let dateItem = CustomItem(title: "Birthday")
         let selectionItem = CustomItem(title: "Selection")
@@ -66,6 +66,10 @@ class FirstSection: Section {
     
     func swap(to newState: State) {
         currentState = newState
+    }
+    
+    func update() {
+        item2.title = "Updated!"
     }
     
 }
@@ -155,6 +159,10 @@ class ViewController: UITableViewController, ActionBarDelegate {
     }
     
     @objc fileprivate func validationAction() {
+        if (firstSection.currentState == .afterParty) {
+            firstSection.update()
+        }
+
         firstSection.swap(to: firstSection.currentState == .preParty ? .onParty : .afterParty)
         guard let error = tableViewManager.errors.first else { return }
         print(error)

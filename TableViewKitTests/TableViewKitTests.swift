@@ -12,6 +12,17 @@ import Nimble
 
 @testable import TableViewKit
 
+class UpdatableTestItem: Updatable, Item {
+
+    internal var drawer: CellDrawer.Type = TestDrawer.self
+    
+    var updatable: Int = 0 {
+        didSet {
+            didUpdate?(self)
+        }
+    }
+}
+
 class TableViewKitTests: XCTestCase {
 
     override func setUp() {
@@ -48,7 +59,12 @@ class TableViewKitTests: XCTestCase {
         section.items.remove(at: 0)
         section.items.append(item)
         
-        section.items.replace(with: [TestItem(), item])
+        let updatableItem = UpdatableTestItem()
+        
+        section.items.replace(with: [TestItem(), updatableItem])
+        
+        updatableItem.updatable = 2
+        
     }
     
     func testConvenienceInit() {

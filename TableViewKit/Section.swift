@@ -48,6 +48,12 @@ extension Section {
 
             switch change {
             case .inserts(let array):
+                let updatables = array.flatMap { self.items[$0] as? Updatable }
+                for (index, item) in updatables.enumerated() {
+                    item.didUpdate = { [weak self] item in
+                        self?.items.callback?(.updates([index]))
+                    }
+                }
                 let indexPaths = array.map { IndexPath(item: $0, section: sectionIndex) }
                 tableView.insertRows(at: indexPaths, with: .automatic)
             case .deletes(let array):

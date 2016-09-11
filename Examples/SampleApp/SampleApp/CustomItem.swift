@@ -23,9 +23,14 @@ public class CustomDrawer: CellDrawer {
 }
 
 
-public class CustomItem: Selectable, Item {
-    
-    public var title: String?
+public class CustomItem: Updatable, Selectable, Item {
+
+    public var title: String? {
+        didSet {
+            guard oldValue != title else { return }
+            didUpdate?(self)
+        }
+    }
     
     public var onSelection: (Selectable) -> () = { _ in }
     
@@ -36,10 +41,8 @@ public class CustomItem: Selectable, Item {
     
     public var drawer: CellDrawer.Type = CustomDrawer.self
     
-    public init() { }
-    
-    public convenience init(title: String) {
-        self.init()
+    public required init(title: String) {
+        super.init()
         self.title = title
     }
 }

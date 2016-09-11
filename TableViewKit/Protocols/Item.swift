@@ -8,6 +8,11 @@
 
 import Foundation
 
+open class Updatable {
+    public var didUpdate: ((Item) -> ())?
+    public init() { }
+}
+
 public protocol Item: class {
     var drawer: CellDrawer.Type { get }
 
