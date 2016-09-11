@@ -33,6 +33,7 @@
 		CCCAC1261D7D9EE00001FC1D /* HeaderFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAC1251D7D9EE00001FC1D /* HeaderFooter.swift */; };
 		CCCAC1281D7DA2D00001FC1D /* ImmutableMutableHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAC1271D7DA2CF0001FC1D /* ImmutableMutableHeight.swift */; };
 		CCDB8FAB1D83649B00E44A99 /* ObservableArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB8FAA1D83649B00E44A99 /* ObservableArray.swift */; };
+		CCDCF5B91D86055100921D7C /* NotifyChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDCF5B81D86055000921D7C /* NotifyChanges.swift */; };
 		CCE400F61D731B7300537715 /* TableViewDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE400F51D731B7300537715 /* TableViewDataSourceTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		CCCAC1251D7D9EE00001FC1D /* HeaderFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderFooter.swift; path = Protocols/HeaderFooter.swift; sourceTree = "<group>"; };
 		CCCAC1271D7DA2CF0001FC1D /* ImmutableMutableHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImmutableMutableHeight.swift; sourceTree = "<group>"; };
 		CCDB8FAA1D83649B00E44A99 /* ObservableArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableArray.swift; sourceTree = "<group>"; };
+		CCDCF5B81D86055000921D7C /* NotifyChanges.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotifyChanges.swift; sourceTree = "<group>"; };
 		CCE400F51D731B7300537715 /* TableViewDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSourceTests.swift; sourceTree = "<group>"; };
 		D0E1FB244FF2B149DB428D40 /* Pods-TableViewKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableViewKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-TableViewKit/Pods-TableViewKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,6 +166,7 @@
 				CCBE45791D72F79C00414A64 /* Extensions */,
 				CCBE45821D72F79C00414A64 /* Validator */,
 				CCDB8FAA1D83649B00E44A99 /* ObservableArray.swift */,
+				CCDCF5B81D86055000921D7C /* NotifyChanges.swift */,
 				CCBE45891D72F79C00414A64 /* BaseCell.swift */,
 				CCCAC1271D7DA2CF0001FC1D /* ImmutableMutableHeight.swift */,
 				CCBE458E1D72F79C00414A64 /* TableViewManager.swift */,
@@ -417,6 +420,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCDCF5B91D86055100921D7C /* NotifyChanges.swift in Sources */,
 				CCBE45A01D72F79C00414A64 /* Section.swift in Sources */,
 				CCBE45921D72F79C00414A64 /* NSIndexSet+Array.swift in Sources */,
 				CCBE45991D72F79C00414A64 /* ValidationError.swift in Sources */,

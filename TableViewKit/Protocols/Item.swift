@@ -8,15 +8,12 @@
 
 import Foundation
 
-open class Updatable {
-    public var didUpdate: ((Item) -> ())?
-    public init() { }
-}
-
 public protocol Item: class {
     var drawer: CellDrawer.Type { get }
 
     var height: ImmutableMutableHeight? { get }
+    
+    var notifyChanges: Bool { get }
 
     func indexPath(inManager manager: TableViewManager) -> IndexPath?
     func section(inManager manager: TableViewManager) -> Section?
@@ -59,6 +56,23 @@ extension Item {
             manager.tableView.deleteRows(at: [itemIndexPath], with: animation)
         }
     }
+}
+
+extension Item {
+    public var notifyChanges: Bool {
+        return false
+    }
+    
+    func setupObservables(with callback: @escaping () -> ()) {
+        let mirror = Mirror(reflecting: self)
+        let observableProperties = mirror.children.flatMap { child -> _NotifyChanges? in
+            return child.value as? _NotifyChanges
+        }
+        for property in observableProperties {
+            property.didSet = callback
+        }
+    }
+
 }
 
 public extension Collection where Iterator.Element == Item {

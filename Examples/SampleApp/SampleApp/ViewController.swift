@@ -69,7 +69,7 @@ class FirstSection: Section {
     }
     
     func update() {
-        item2.title = "Updated!"
+        item2.title.value = "Updated!"
     }
     
 }

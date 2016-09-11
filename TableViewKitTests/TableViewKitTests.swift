@@ -12,15 +12,12 @@ import Nimble
 
 @testable import TableViewKit
 
-class UpdatableTestItem: Updatable, Item {
+class UpdatableTestItem: Item {
 
     internal var drawer: CellDrawer.Type = TestDrawer.self
     
-    var updatable: Int = 0 {
-        didSet {
-            didUpdate?(self)
-        }
-    }
+    var updatable: NotifyChanges<Int> = NotifyChanges(0)
+    var notifyChanges: Bool = true
 }
 
 class TableViewKitTests: XCTestCase {
@@ -63,7 +60,7 @@ class TableViewKitTests: XCTestCase {
         
         section.items.replace(with: [TestItem(), updatableItem])
         
-        updatableItem.updatable = 2
+        updatableItem.updatable.value = 2
         
     }
     

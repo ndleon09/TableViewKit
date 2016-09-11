@@ -18,19 +18,15 @@ public class CustomDrawer: CellDrawer {
         let item = item as! CustomItem
         cell.accessoryType = item.accessoryType
         cell.accessoryView = item.accessoryView
-        cell.textLabel?.text = item.title
+        cell.textLabel?.text = item.title.value
     }
 }
 
 
-public class CustomItem: Updatable, Selectable, Item {
+public class CustomItem: Selectable, Item {
 
-    public var title: String? {
-        didSet {
-            guard oldValue != title else { return }
-            didUpdate?(self)
-        }
-    }
+    public var title: NotifyChanges<String>
+    public var notifyChanges: Bool = true
     
     public var onSelection: (Selectable) -> () = { _ in }
     
@@ -42,7 +38,6 @@ public class CustomItem: Updatable, Selectable, Item {
     public var drawer: CellDrawer.Type = CustomDrawer.self
     
     public required init(title: String) {
-        super.init()
-        self.title = title
+        self.title = NotifyChanges(title)
     }
 }

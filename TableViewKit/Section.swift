@@ -40,6 +40,16 @@ extension Section {
             manager.tableView.register(type: $0.drawer.cellType)
         }
     }
+    
+    private func setupObservables(at array: [Int], inManager manager: TableViewManager) {
+        let updatables = array.flatMap { self.items[$0].notifyChanges ? self.items[$0] : nil }
+        for item in updatables {
+            item.setupObservables { [weak self] in
+                guard let indexPath = item.indexPath(inManager: manager) else { return }
+                self?.items.callback?(.updates([indexPath.row]))
+            }
+        }
+    }
 
     public func setup(inManager manager: TableViewManager) {
         items.callback = { change in
@@ -47,20 +57,15 @@ extension Section {
             let tableView = manager.tableView
 
             switch change {
-            case .inserts(let array):
-                let updatables = array.flatMap { self.items[$0] as? Updatable }
-                for (index, item) in updatables.enumerated() {
-                    item.didUpdate = { [weak self] item in
-                        self?.items.callback?(.updates([index]))
-                    }
-                }
-                let indexPaths = array.map { IndexPath(item: $0, section: sectionIndex) }
+            case .inserts(let indexes):
+                self.setupObservables(at: indexes, inManager: manager)
+                let indexPaths = indexes.map { IndexPath(item: $0, section: sectionIndex) }
                 tableView.insertRows(at: indexPaths, with: .automatic)
-            case .deletes(let array):
-                let indexPaths = array.map { IndexPath(item: $0, section: sectionIndex) }
+            case .deletes(let indexes):
+                let indexPaths = indexes.map { IndexPath(item: $0, section: sectionIndex) }
                 tableView.deleteRows(at: indexPaths, with: .automatic)
-            case .updates(let array):
-                let indexPaths = array.map { IndexPath(item: $0, section: sectionIndex) }
+            case .updates(let indexes):
+                let indexPaths = indexes.map { IndexPath(item: $0, section: sectionIndex) }
                 tableView.reloadRows(at: indexPaths, with: .automatic)
             case .moves(let array):
                 let fromIndexPaths = array.map { IndexPath(item: $0.0, section: sectionIndex) }
